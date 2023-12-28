@@ -112,6 +112,7 @@ contract Raffle is VRFConsumerBaseV2, AutomationCompatibleInterface {
                 uint256(s_raffleState)
             );
         }
+        s_raffleState = RaffleState.CALCULATING;
         // Request the random number
         uint256 requestId = i_vrfCoordinator.requestRandomWords(
             i_gasLane,
@@ -167,5 +168,13 @@ contract Raffle is VRFConsumerBaseV2, AutomationCompatibleInterface {
 
     function getLatestTimeStamp() public view returns (uint256) {
         return s_lastTimeStamp;
+    }
+
+    function getInterval() public view returns (uint256) {
+        return i_interval;
+    }
+
+    function getSubscriptionId() public view returns (uint64) {
+        return i_subscriptionId;
     }
 }
