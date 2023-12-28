@@ -23,6 +23,16 @@ module.exports = {
     solidity: {
         compilers: [{ version: "0.8.19" }, { version: "0.8.4" }],
     },
+    etherscan: {
+        apiKey: process.env.ETHERSCAN_API_KEY,
+    },
+    gasReporter: {
+        enabled: false,
+        outputFile: "gas-report.txt",
+        noColors: true,
+        currency: "USD",
+        coinmarketcap: process.env.COINMARKETCAP_API_KEY,
+    },
     namedAccounts: {
         deployer: {
             default: 0,
@@ -30,5 +40,8 @@ module.exports = {
         player: {
             default: 1,
         },
+    },
+    mocha: {
+        timeout: 200000,
     },
 }
