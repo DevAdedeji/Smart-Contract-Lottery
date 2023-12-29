@@ -57,7 +57,10 @@ const { assert, expect } = require("chai")
               it("reverts when you don't pay enough", async () => {
                   await expect(
                       raffle.enterRaffle({ value: notEnoughSendValue }),
-                  ).to.be.reverted
+                  ).to.be.revertedWithCustomError(
+                      raffle,
+                      "Raffle__NotEnoughEntranceFee",
+                  )
               })
               it("User entered raffle successfully", async () => {
                   await raffle.enterRaffle({ value: entranceFee })
@@ -80,8 +83,9 @@ const { assert, expect } = require("chai")
                   })
                   // we pretend to be a keeper for a second
                   await raffle.performUpkeep("0x")
-                  await expect(raffle.enterRaffle({ value: entranceFee })).to.be
-                      .reverted
+                  await expect(
+                      raffle.enterRaffle({ value: entranceFee }),
+                  ).to.be.revertedWithCustomError(raffle, "Raffle__NotOpen")
               })
           })
 
@@ -156,7 +160,12 @@ const { assert, expect } = require("chai")
                   assert(tx)
               })
               it("reverts if checkup is false", async () => {
-                  await expect(raffle.performUpkeep("0x")).to.be.reverted
+                  await expect(
+                      raffle.performUpkeep("0x"),
+                  ).to.be.revertedWithCustomError(
+                      raffle,
+                      "Raffle__UpkeepNotNeeded",
+                  )
               })
               it("updates the raffle state and emits a requestId", async () => {
                   await raffle.enterRaffle({ value: entranceFee })
