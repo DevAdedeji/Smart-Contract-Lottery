@@ -10,6 +10,7 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
     let subscriptionId
 
     if (developmentChains.includes(network.name)) {
+        console.log("Deploying mock from deploy raffle file")
         const vrfCoordinatorV2Mock = await ethers.getContract(
             "VRFCoordinatorV2Mock",
         )
@@ -28,7 +29,7 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
     }
 
     const entranceFee =
-        networkConfig[chainId]["entranceFee"] || ethers.parseEther("0.01")
+        networkConfig[chainId]["entranceFee"] || ethers.parseEther("0.1")
 
     const gasLane =
         networkConfig[chainId]["gasLane"] ||

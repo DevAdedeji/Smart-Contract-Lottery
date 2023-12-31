@@ -11,6 +11,7 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
     const chainName = network.name
 
     if (developmentChains.includes(chainName)) {
+        console.log("Deploying mock from deploy mock file")
         log("Local network detected! deploying mock")
         await deploy("VRFCoordinatorV2Mock", {
             from: deployer,
